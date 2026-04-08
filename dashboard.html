@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WealthVault Pro | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #0f172a; color: white; font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-link:hover { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <div class="w-64 glass hidden md:flex flex-col p-6">
+        <h1 class="text-2xl font-black italic text-blue-500 mb-10 tracking-tighter">WEALTH<span class="text-white">VAULT</span></h1>
+        <nav class="space-y-4 flex-1">
+            <a href="#" class="sidebar-link flex items-center p-3 rounded-xl transition text-blue-400 bg-blue-500/10"><i class="fas fa-chart-line mr-3"></i> Dashboard</a>
+            <a href="#" class="sidebar-link flex items-center p-3 rounded-xl transition text-slate-400"><i class="fas fa-wallet mr-3"></i> Wallet</a>
+            <a href="#" class="sidebar-link flex items-center p-3 rounded-xl transition text-slate-400"><i class="fas fa-exchange-alt mr-3"></i> Transactions</a>
+        </nav>
+        <a href="/logout" class="flex items-center p-3 rounded-xl text-rose-400 hover:bg-rose-500/10 transition"><i class="fas fa-sign-out-alt mr-3"></i> Logout</a>
+    </div>
+
+    <main class="flex-1 p-4 md:p-10">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h2 class="text-3xl font-bold">Welcome back, Admin</h2>
+                <p class="text-slate-400 text-sm">System Status: <span class="text-green-400">Secure</span></p>
+            </div>
+            <div class="text-right">
+                <p class="text-xs text-slate-500 uppercase font-bold">Total Balance</p>
+                <p class="text-3xl font-black text-blue-400">${{ "{:,.2f}".format(user.balance) }}</p>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 glass rounded-3xl p-8 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Instant Trade</h3>
+                    <p class="text-slate-400 text-sm mb-6">Market Price: <span class="text-white font-mono">$68,000.00</span></p>
+                </div>
+                <form action="/buy" method="POST">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20 transform active:scale-95 transition-all">
+                        Buy 0.1 BTC
+                    </button>
+                </form>
+            </div>
+
+            <div class="lg:col-span-2 glass rounded-3xl p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold">Your Assets</h3>
+                    <span class="text-xs font-mono text-slate-500">{{ user.portfolio|length }} Assets Held</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-slate-500 text-xs uppercase tracking-widest border-b border-slate-800">
+                                <th class="pb-4">Asset</th>
+                                <th class="pb-4 text-right">Amount</th>
+                                <th class="pb-4 text-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in user.portfolio %}
+                            <tr class="border-b border-slate-800/50">
+                                <td class="py-4">
+                                    <div class="font-bold text-blue-400">{{ item.asset_name }}</div>
+                                    <div class="text-[10px] text-slate-500">Entry: ${{ "{:,.2f}".format(item.purchase_price) }}</div>
+                                </td>
+                                <td class="py-4 text-right font-mono">{{ item.amount }}</td>
+                                <td class="py-4 text-right">
+                                    <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400">+2.4%</span>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="py-10 text-center text-slate-500 italic">No assets found. Start trading to build your wealth.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

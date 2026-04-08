@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Payment Method</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #000000; color: white; font-family: sans-serif; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+    <div class="w-full max-w-sm bg-gray-900 rounded-3xl p-8 border border-gray-800 shadow-2xl">
+        <h2 class="text-2xl font-bold mb-8 text-center text-white">Select Method</h2>
+        
+        <div class="space-y-4">
+            <a href="/pay_paypal" class="flex items-center justify-between p-5 bg-blue-600 rounded-2xl active:scale-95 transition-transform hover:bg-blue-700">
+                <div class="flex items-center">
+                    <i class="fab fa-paypal text-2xl mr-4"></i>
+                    <span class="text-lg font-bold">PayPal</span>
+                </div>
+                <i class="fas fa-chevron-right opacity-50"></i>
+            </a>
+
+            <a href="/pay_email" class="flex items-center justify-between p-5 bg-red-600 rounded-2xl active:scale-95 transition-transform hover:bg-red-700">
+                <div class="flex items-center">
+                    <i class="fas fa-envelope text-2xl mr-4"></i>
+                    <span class="text-lg font-bold">Gmail</span>
+                </div>
+                <i class="fas fa-chevron-right opacity-50"></i>
+            </a>
+        </div>
+
+        <button onclick="window.history.back()" class="mt-10 w-full text-gray-500 font-medium hover:text-white transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i> Go Back
+        </button>
+    </div>
+
+</body>
+</html>
+
